@@ -18,6 +18,10 @@
 #include "memory.hpp"
 #include "transform_info.hpp"
 
+#ifdef USE_ADRENO_GPU
+#include "gpu/adreno_voxel_grid.hpp"
+#endif
+
 #include <pcl_ros/transforms.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
 
@@ -40,7 +44,8 @@ VoxelGridDownsampleFilter::VoxelGridDownsampleFilter(const rclcpp::NodeOptions &
   voxel_size_z_(declare_parameter<float>("voxel_size_z")),
   tf_input_frame_(declare_parameter<std::string>("input_frame")),
   tf_output_frame_(declare_parameter<std::string>("output_frame")),
-  max_queue_size_(static_cast<std::size_t>(declare_parameter<int64_t>("max_queue_size")))
+  max_queue_size_(static_cast<std::size_t>(declare_parameter<int64_t>("max_queue_size"))),
+  use_gpu_acceleration_(declare_parameter<bool>("use_gpu_acceleration", false))
 {
   // Set publishers
   {
@@ -213,6 +218,24 @@ void VoxelGridDownsampleFilter::filter(
   const PointCloud2ConstPtr & input, PointCloud2 & output, const TransformInfo & transform_info)
 {
   std::scoped_lock lock(mutex_);
+
+#ifdef USE_ADRENO_GPU
+  // Try GPU acceleration when enabled and appropriate
+  if (use_gpu_acceleration_) {
+    RCLCPP_DEBUG(this->get_logger(), "Attempting to use GPU acceleration for voxel grid filtering");
+    bool gpu_success = gpuAcceleratedVoxelGridFilter(
+      *input, output, voxel_size_x_, voxel_size_y_, voxel_size_z_);
+    
+    if (gpu_success) {
+      RCLCPP_DEBUG(this->get_logger(), "GPU acceleration successful");
+      return;
+    }
+    
+    RCLCPP_DEBUG(this->get_logger(), "GPU acceleration failed, falling back to CPU implementation");
+  }
+#endif
+
+  // Use CPU implementation
   FasterVoxelGridDownsampleFilter faster_voxel_filter;
   faster_voxel_filter.set_voxel_size(voxel_size_x_, voxel_size_y_, voxel_size_z_);
   faster_voxel_filter.set_field_offsets(input, this->get_logger());

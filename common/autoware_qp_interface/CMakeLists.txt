@@ -7,6 +7,24 @@ autoware_package()
 find_package(Eigen3 REQUIRED)
 find_package(proxsuite REQUIRED)
 
+# Check for ARM64 architecture (QCS6490)
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
+  message(STATUS "Building for ARM64 architecture (QCS6490)")
+  
+  # ARM64-specific optimization flags
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=armv8-a+crypto+crc -mtune=cortex-a76")
+  
+  # Enable NEON instructions for ARM64
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfpu=neon-fp-armv8")
+  
+  # Try to find Qualcomm compute libraries if available
+  find_package(qcs6490_compute QUIET)
+  if(qcs6490_compute_FOUND)
+    message(STATUS "Found QCS6490 compute libraries")
+    set(USE_QCS6490_COMPUTE TRUE)
+  endif()
+endif()
+
 # after find_package(osqp_vendor) in ament_auto_find_build_dependencies
 find_package(osqp REQUIRED)
 get_target_property(OSQP_INCLUDE_SUB_DIR osqp::osqp INTERFACE_INCLUDE_DIRECTORIES)
@@ -31,6 +49,12 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   ${QP_INTERFACE_LIB_HEADERS}
 )
 target_compile_options(${PROJECT_NAME} PRIVATE -Wno-error=old-style-cast)
+
+# QCS6490 specific optimizations for compute-intensive operations
+if(DEFINED USE_QCS6490_COMPUTE)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE USE_QCS6490_COMPUTE)
+  target_link_libraries(${PROJECT_NAME} qcs6490_compute::qcs6490_compute)
+endif()
 
 target_include_directories(${PROJECT_NAME}
   SYSTEM PUBLIC

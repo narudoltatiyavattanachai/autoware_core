@@ -91,6 +91,9 @@ private:
   std::mutex mutex_;
   /** \brief The maximum queue size (default: 3). */
   size_t max_queue_size_ = 3;
+  
+  /** \brief Flag to enable GPU acceleration on QCS6490 */
+  bool use_gpu_acceleration_ = false;
 
   /** \brief check if point cloud is valid */
   /** \param cloud point cloud */
