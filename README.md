@@ -6,3 +6,9 @@
 - A more detailed explanation about Autoware Core can be found on the [Autoware concepts documentation page](https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-concepts/#the-core-module).
 
 - For researchers and developers who want to extend the functionality of Autoware Core with experimental, cutting-edge ROS packages, see [Autoware Universe](https://github.com/autowarefoundation/autoware_universe).
+
+## Platform Support
+
+In addition to standard x86_64 platforms, Autoware Core now provides support for the Qualcomm QCS6490 platform, an ARM64-based SoC with hardware acceleration features. 
+
+For QCS6490-specific setup instructions and optimizations, refer to [README_QCS6490.md](README_QCS6490.md).
