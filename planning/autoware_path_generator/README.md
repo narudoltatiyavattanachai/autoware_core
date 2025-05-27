@@ -14,21 +14,21 @@ Their center lines are concatenated to generate a path.
 If waypoints exist in the route, it replaces the overlapped segment of the center line with them.
 The overlap interval is determined as shown in the following figure.
 
-![waypoint_group_overlap_interval_determination](./media/waypoint_group_overlap_interval_determination.drawio.svg)
+![waypoint_group_overlap_interval_determination](./docs/waypoint_group_overlap_interval_determination.drawio.svg)
 
 ## Path cut
 
 If there is a self-intersection on either of the path bounds, the path is cut off a specified distance before the first intersection, as shown in the following figure (path: green, bound: blue).
 
-![path_cut_self_intersection](./media/path_cut_self_intersection.drawio.svg)
+![path_cut_self_intersection](./docs/path_cut_self_intersection.drawio.svg)
 
 Depending on the crossing angle, the return path's bound may be closer to the centerline than the outward's one, depicted in the diagram below. To deal with this, intersections of the left and right bounds (mutual intersection) are taken into account as well, and the path is cut at the nearest intersecting point.
 
-![path_cut_mutual_intersection](./media/path_cut_mutual_intersection.drawio.svg)
+![path_cut_mutual_intersection](./docs/path_cut_mutual_intersection.drawio.svg)
 
 Furthermore, in the case of the following figure, the return path goes inside even if mutual intersection is considered. Therefore, path cut is also made when the start edge of the path and the path bounds intersect.
 
-![path_cut_start_edge_intersection](./media/path_cut_start_edge_intersection.drawio.svg)
+![path_cut_start_edge_intersection](./docs/path_cut_start_edge_intersection.drawio.svg)
 
 ## Turn signal
 
@@ -36,11 +36,11 @@ Turn signal is determined based on the rules defined for behavior_path_planner. 
 
 As a general rule, the turn signal is turned on at a specified distance before the lanelet in which a turn is designated, and turned off when the driving direction has changed to the specified degree.
 
-![turn_signal_sections](./media/turn_signal_sections.drawio.svg)
+![turn_signal_sections](./docs/turn_signal_sections.drawio.svg)
 
 If consecutive turns are required, the turn signal corresponding to the required section or the last section takes precedence.
 
-![turn_signal_conflict](./media/turn_signal_conflict.drawio.svg)
+![turn_signal_conflict](./docs/turn_signal_conflict.drawio.svg)
 
 ## Hazard signal
 

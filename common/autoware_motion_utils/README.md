@@ -6,7 +6,7 @@
 
 `Segment` in Autoware is the line segment between two successive points as follows.
 
-![segment](./media/segment.svg){: style="width:600px"}
+![segment](./docs/segment.svg){: style="width:600px"}
 
 The nearest segment index and nearest point index to a certain position is not always th same.
 Therefore, we prepare two different utility functions to calculate a nearest index for points and segments.
@@ -62,7 +62,7 @@ Assuming that the path length before the ego is short enough, we expect to find 
 Blue circles describes the distance threshold from the base link position and two blue lines describe the yaw threshold against the base link orientation.
 Among points in these cases, the correct nearest point which is red can be found.
 
-![ego_nearest_search](./media/ego_nearest_search.svg)
+![ego_nearest_search](./docs/ego_nearest_search.svg)
 
 Therefore, the implementation is as follows.
 
