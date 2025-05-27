@@ -7,7 +7,7 @@ The **Extend Kalman Filter Localizer** estimates robust and less noisy robot pos
 The overall flowchart of the autoware_ekf_localizer is described below.
 
 <p align="center">
-  <img src="./media/ekf_flowchart.png" width="800">
+  <img src="./docs/ekf_flowchart.png" width="800">
 </p>
 
 ## Features
@@ -21,15 +21,15 @@ This package includes the following features:
 - **Calculation of vertical correction amount from pitch** mitigates localization instability on slopes. For example, when going uphill, it behaves as if it is buried in the ground (see the left side of the "Calculate delta from pitch" figure) because EKF only considers 3DoF(x,y,yaw). Therefore, EKF corrects the z-coordinate according to the formula (see the right side of the "Calculate delta from pitch" figure).
 
 <p align="center">
-<img src="./media/ekf_delay_comp.png" width="800">
+<img src="./docs/ekf_delay_comp.png" width="800">
 </p>
 
 <p align="center">
-  <img src="./media/ekf_smooth_update.png" width="800">
+  <img src="./docs/ekf_smooth_update.png" width="800">
 </p>
 
 <p align="center">
-  <img src="./media/calculation_delta_from_pitch.png" width="800">
+  <img src="./docs/calculation_delta_from_pitch.png" width="800">
 </p>
 
 ## Node
@@ -155,7 +155,7 @@ Currently, the accuracy of covariance estimation itself is not very good, so it 
 
 ### kinematics model in update function
 
-<img src="./media/ekf_dynamics.png" width="320">
+<img src="./docs/ekf_dynamics.png" width="320">
 
 where, $\theta_k$ represents the vehicle's heading angle, including the mounting angle bias.
 $b_k$ is a correction term for the yaw bias, and it is modeled so that $(\theta_k+b_k)$ becomes the heading angle of the base_link.
@@ -165,27 +165,27 @@ The pose_estimator is expected to publish the base_link in the map coordinate sy
 
 The measurement time delay is handled by an augmented state [1] (See, Section 7.3 FIXED-LAG SMOOTHING).
 
-<img src="./media/delay_model_eq.png" width="320">
+<img src="./docs/delay_model_eq.png" width="320">
 
 Note that, although the dimension gets larger since the analytical expansion can be applied based on the specific structures of the augmented states, the computational complexity does not significantly change.
 
 ## Test Result with Autoware NDT
 
 <p align="center">
-<img src="./media/ekf_autoware_res.png" width="600">
+<img src="./docs/ekf_autoware_res.png" width="600">
 </p>
 
 ## Diagnostics
 
 <p align="center">
-<img src="./media/ekf_diagnostics.png" width="320">
+<img src="./docs/ekf_diagnostics.png" width="320">
 </p>
 
 <p align="center">
-<img src="./media/ekf_diagnostics_callback_pose.png" width="320">
+<img src="./docs/ekf_diagnostics_callback_pose.png" width="320">
 </p>
 <p align="center">
-<img src="./media/ekf_diagnostics_callback_twist.png" width="320">
+<img src="./docs/ekf_diagnostics_callback_twist.png" width="320">
 </p>
 
 ### The conditions that result in a WARN state

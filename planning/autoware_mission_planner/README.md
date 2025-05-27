@@ -54,7 +54,7 @@ In current Autoware Universe, only the plugin for Lanelet2 map format is support
 
 ## Route section
 
-![route_sections](./media/route_sections.svg)
+![route_sections](./docs/route_sections.svg)
 
 Route section, whose type is `autoware_planning_msgs/LaneletSegment`, is a "slice" of a road that bundles lane changeable lanes.
 Note that the most atomic unit of route is `autoware_planning_msgs/LaneletPrimitive`, which has the unique id of a lane in a vector map and its type.
@@ -72,7 +72,7 @@ Another control mechanism is the creation of a footprint of the goal pose accord
 
 At the image below, there are sample goal pose validation cases.
 
-![goal_footprints](./media/goal_footprints.svg)
+![goal_footprints](./docs/goal_footprints.svg)
 
 ## Implementation
 
@@ -159,7 +159,7 @@ To calculate `route_lanelets`,
 Reroute here means changing the route while driving. Unlike route setting, it is required to keep a certain distance from vehicle to the point where the route is changed.
 If the ego vehicle is not on autonomous driving state, the safety checking process will be skipped.
 
-![rerouting_safety](./media/rerouting_safety.svg)
+![rerouting_safety](./docs/rerouting_safety.svg)
 
 And there are three use cases that require reroute.
 

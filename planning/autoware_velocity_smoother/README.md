@@ -10,7 +10,7 @@ We call this module `autoware_velocity_smoother` because the limitations of the 
 
 ### Flow chart
 
-![motion_velocity_smoother_flow](./media/motion_velocity_smoother_flow.drawio.svg)
+![motion_velocity_smoother_flow](./docs/motion_velocity_smoother_flow.drawio.svg)
 
 #### Extract trajectory
 

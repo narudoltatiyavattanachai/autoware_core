@@ -61,7 +61,7 @@
 
 ## Diagnostics
 
-<img src="./media/diagnostic.png" alt="drawing" width="600"/>
+<img src="./docs/diagnostic.png" alt="drawing" width="600"/>
 
 | Name                             | Description                                                                               | Transition condition to Warning | Transition condition to Error                     |
 | -------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------- |
